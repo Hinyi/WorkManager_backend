@@ -1,0 +1,21 @@
+﻿services:
+  api:
+    image: api
+    build:
+      context: .
+      dockerfile: API/Dockerfile
+
+  identity:
+    image: postgres:latest
+    container_name: workManger.Users
+    environment:
+      - POSTGRES_DB=workManger.Users
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/workManager-db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    build:
+      context: .
+      dockerfile: Identity/Dockerfile
