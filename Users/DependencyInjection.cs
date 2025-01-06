@@ -14,5 +14,7 @@ public static class DependencyInjection
                 .UseNpgsql(configuration.GetConnectionString("UserDb")));
         
         return services;
+        
+        
     }
 }
