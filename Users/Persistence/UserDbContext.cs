@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Users.Entities;
 
 namespace Users.Persistence;
 
-public class UserDbContext : DbContext
+public sealed class UserDbContext : DbContext
 { 
     public UserDbContext(DbContextOptions options) : base(options)
     {
@@ -12,4 +13,5 @@ public class UserDbContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserDbContext).Assembly);
     }
+    public DbSet<User> Users { get; set; }
 }
