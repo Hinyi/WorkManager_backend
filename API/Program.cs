@@ -1,4 +1,5 @@
 using Users;
+using Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddShared();
 builder.Services.AddUser(builder.Configuration);
 
 var app = builder.Build();
@@ -23,6 +25,8 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
+
+app.UseShared();
 
 app.UseAuthorization();
 
