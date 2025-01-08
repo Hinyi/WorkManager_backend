@@ -14,6 +14,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddShared();
 builder.Services.AddUser(builder.Configuration);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontEndClient", builder =>
+        builder.AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithOrigins("http://localhost:8080")
+            .WithOrigins("https://localhost:7047")
+    );
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
