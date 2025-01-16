@@ -20,4 +20,9 @@ public class UserRepository :IUserRepository
     {
         throw new NotImplementedException();
     }
+
+    public async Task<User?> GetUserByEmail(string email)
+    {
+        throw new NotImplementedException();
+    }
 }
