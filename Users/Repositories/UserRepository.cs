@@ -1,14 +1,23 @@
 using Users.Entities;
 using Users.Entities.ValueObject;
 using Users.Interface;
+using Users.Persistence;
 
 namespace Users.Repositories;
 
 public class UserRepository :IUserRepository
 {
+    private readonly UserDbContext _userDb;
+
+    public UserRepository(UserDbContext userDb)
+    {
+        _userDb = userDb;
+    }
+    
     public async Task AddUser(User user)
     {
-        throw new NotImplementedException();
+        await _userDb.AddAsync(user);
+        await _userDb.SaveChangesAsync();
     }
  
     public async Task DeleteUser(User user)

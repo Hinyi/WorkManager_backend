@@ -1,3 +1,4 @@
+using System.Reflection;
 using Users;
 using Shared;
 
@@ -5,14 +6,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.Users(builder.Configuration);
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+    
 builder.Services.AddShared();
-builder.Services.AddUser(builder.Configuration);
 
 builder.Services.AddCors(options =>
 {
