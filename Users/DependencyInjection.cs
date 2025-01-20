@@ -24,8 +24,6 @@ public static class DependencyInjection
                 .UseNpgsql(configuration.GetConnectionString("UserDb")));
         
         var applicationAssembly = typeof(ServiceCollectionExtensions).Assembly;
-        //services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(applicationAssembly));
-        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         services.AddMediatR(cfg =>
             cfg.RegisterServicesFromAssemblyContaining<UserAssemblyReference>());
 
