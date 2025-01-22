@@ -27,6 +27,7 @@ public static class DependencyInjection
         services.AddMediatR(cfg =>
             cfg.RegisterServicesFromAssemblyContaining<UserAssemblyReference>());
 
+        // Add AutoMapper to user entities
         services.AddAutoMapper(typeof(UserProfile).Assembly);
 
         services.AddValidatorsFromAssembly(applicationAssembly)
