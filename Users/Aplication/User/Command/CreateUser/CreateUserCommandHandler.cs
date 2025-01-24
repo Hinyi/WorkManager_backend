@@ -5,7 +5,7 @@ using Users.Entities;
 
 namespace Users.Aplication.User.Command.CreateUserCommand;
 
-public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand>
+public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, string>
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
@@ -16,9 +16,12 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand>
         _mapper = mapper;
     }
 
-    public async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var newUser = _mapper.Map<Entities.User>(request);
+        var id = newUser.Id;
         await _userRepository.AddUser(newUser);
+        
+        return id.ToString();
     }
 }
