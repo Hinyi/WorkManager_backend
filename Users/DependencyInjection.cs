@@ -15,30 +15,40 @@ namespace Users;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection Users(this IServiceCollection services, IConfiguration configuration)
+    public static void Users(this IServiceCollection services, IConfiguration configuration)
     {
         // var options = configuration.GetOptions<PostgresOptions>("UserDb");
         //
         services.AddDbContext<UserDbContext>(options =>
             options
                 .UseNpgsql(configuration.GetConnectionString("UserDb")));
-        
-        var applicationAssembly = typeof(ServiceCollectionExtensions).Assembly;
-        services.AddMediatR(cfg =>
-            cfg.RegisterServicesFromAssemblyContaining<UserAssemblyReference>());
 
-        // Add AutoMapper to user entities
+        var applicationAssembly = typeof(DependencyInjection).Assembly;
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssemblyContaining<UserAssemblyReference>();
+            // cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+        });
+
+    // Add AutoMapper to user entities
         services.AddAutoMapper(typeof(UserProfile).Assembly);
 
         services.AddValidatorsFromAssembly(applicationAssembly)
             .AddFluentValidationAutoValidation();
+        // services.AddValidatorsFromAssembly(typeof(UserAssemblyReference).Assembly);
+            // .AddFluentValidationAutoValidation();
+       
+        // services.AddValidatorsFromAssembly(typeof(Aplication.AssemblyReference).Assembly);
+        // services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+        // services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
+        // services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        
         
         services.AddHttpContextAccessor();
 
         services.AddScoped<IUserRepository, UserRepository>();
         
-        return services;
-        
+        // return services;
         
     }
 }
