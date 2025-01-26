@@ -5,17 +5,26 @@
       context: .
       dockerfile: API/Dockerfile
 
-  identity:
+  identity.database:
     image: postgres:latest
-    container_name: workManger.Users
+    container_name: identity.database
     environment:
-      - POSTGRES_DB=workManger.Users
+      - POSTGRES_DB=identity
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - ./.containers/workManager-db:/var/lib/postgresql/data
+      - ./.containers/identity-db:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - 5440:5432
+
+  identity.api:
+    image: identity.api
     build:
       context: .
-      dockerfile: Identity/Dockerfile
+      dockerfile: Identity.API/Dockerfile
+
+  apigateway:
+    image: apigateway
+    build:
+      context: .
+      dockerfile: APIGateway/Dockerfile
