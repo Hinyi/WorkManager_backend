@@ -1,10 +1,4 @@
 ﻿services:
-  api:
-    image: api
-    build:
-      context: .
-      dockerfile: API/Dockerfile
-
   identity.database:
     image: postgres:latest
     container_name: identity.database
