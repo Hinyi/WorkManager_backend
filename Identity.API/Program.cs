@@ -23,8 +23,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseShared();
 
-app.UseAuthorization();
 
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
