@@ -12,9 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Users", "Users\Users.csproj", "{A3918554-4C76-46FA-B653-929911F52921}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService", "IdentityService\IdentityService.csproj", "{A3918554-4C76-46FA-B653-929911F52921}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{0E1B8208-1483-4E74-8799-388C30CF6410}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{1977BB0B-D92B-48A7-A0D5-970A6F45834F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,8 +25,9 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1804F46B-ED0A-417C-A808-9DBB800D2A4B} = {79F8C67A-23B5-4AA5-9EA0-EDAB5A8C08E0}
-		{A3918554-4C76-46FA-B653-929911F52921} = {79F8C67A-23B5-4AA5-9EA0-EDAB5A8C08E0}
 		{0E1B8208-1483-4E74-8799-388C30CF6410} = {79F8C67A-23B5-4AA5-9EA0-EDAB5A8C08E0}
+		{1977BB0B-D92B-48A7-A0D5-970A6F45834F} = {79F8C67A-23B5-4AA5-9EA0-EDAB5A8C08E0}
+		{A3918554-4C76-46FA-B653-929911F52921} = {1977BB0B-D92B-48A7-A0D5-970A6F45834F}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1804F46B-ED0A-417C-A808-9DBB800D2A4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

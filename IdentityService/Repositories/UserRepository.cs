@@ -1,0 +1,37 @@
+using IdentityService.Entities;
+using IdentityService.Entities.ValueObject;
+using IdentityService.Interface;
+using IdentityService.Persistence;
+
+namespace IdentityService.Repositories;
+
+public class UserRepository :IUserRepository
+{
+    private readonly UserDbContext _userDb;
+
+    public UserRepository(UserDbContext userDb)
+    {
+        _userDb = userDb;
+    }
+    
+    public async Task AddUser(User user)
+    {
+        await _userDb.AddAsync(user);
+        await _userDb.SaveChangesAsync();
+    }
+ 
+    public async Task DeleteUser(User user)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<User?> GetUserById(UserId userId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<User?> GetUserByEmail(string email)
+    {
+        throw new NotImplementedException();
+    }
+}

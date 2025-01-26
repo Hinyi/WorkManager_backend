@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Users.Aplication.User.Command.CreateUserCommand;
+using IdentityService.Aplication.User.Command.CreateUserCommand;
 
 namespace API.Controllers;
 

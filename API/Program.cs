@@ -1,7 +1,7 @@
 using System.Reflection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Users;
+using IdentityService;
 using Shared;
 
 var builder = WebApplication.CreateBuilder(args);
