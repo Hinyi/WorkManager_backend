@@ -13,7 +13,9 @@
 /Identity.API/appsettings.Development.json
 /APIGateway/appsettings.Development.json
 /.idea
+API
 /API
+.containers
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
