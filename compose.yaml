@@ -1,6 +1,6 @@
 ﻿services:
   identity.database:
-    image: postgres:latest
+    image: postgres
     container_name: identity.database
     environment:
       - POSTGRES_DB=identity
@@ -16,9 +16,15 @@
     build:
       context: .
       dockerfile: Identity.API/Dockerfile
+    ports:
+        - 5100:5100
+        - 5101:5101
 
   apigateway:
     image: apigateway
     build:
       context: .
       dockerfile: APIGateway/Dockerfile
+    ports:
+        - 5000:5000
+        - 5001:5001

@@ -7,6 +7,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddReverseProxy()
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontEndClient", builder =>
@@ -28,6 +31,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapReverseProxy();
 app.UseAuthorization();
 
 app.MapControllers();
