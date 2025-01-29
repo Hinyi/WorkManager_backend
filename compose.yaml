@@ -1,4 +1,36 @@
-﻿services:
+﻿version: '3.8'
+
+services:
+
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: /APIGateway/Dockerfile
+    ports:
+      - "5500:5500"
+    environment:
+      - ASPNETCORE_URLS=http://+:5500
+    networks:
+      - proxybackend
+      
+
+  identity.api:
+    image: ${DOCKER_REGISTRY-}identity.api
+    build:
+      context: .
+      dockerfile: /Identity.API/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__UserDb=Host=identity.database;Port=5432;Database=identity;Username=postgres;Password=postgres;Include Error Detail=true
+    depends_on:
+      - identity.database
+    networks:
+      - proxybackend
+  
   identity.database:
     image: postgres
     container_name: identity.database
@@ -10,21 +42,9 @@
       - ./.containers/identity-db:/var/lib/postgresql/data
     ports:
       - 5440:5432
-
-  identity.api:
-    image: identity.api
-    build:
-      context: .
-      dockerfile: Identity.API/Dockerfile
-    ports:
-        - 5100:5100
-        - 5101:5101
-
-  apigateway:
-    image: apigateway
-    build:
-      context: .
-      dockerfile: APIGateway/Dockerfile
-    ports:
-        - 5000:5000
-        - 5001:5001
+    networks:
+      - proxybackend
+    
+networks:
+  proxybackend:
+    driver: bridge
