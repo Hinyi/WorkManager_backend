@@ -2,6 +2,7 @@ using IdentityService.Entities;
 using IdentityService.Entities.ValueObject;
 using IdentityService.Interface;
 using IdentityService.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdentityService.Repositories;
 
@@ -25,9 +26,11 @@ public class UserRepository :IUserRepository
         throw new NotImplementedException();
     }
 
-    public async Task<User?> GetUserById(UserId userId)
+    public async Task<User?> GetUserById(string userId)
     {
-        throw new NotImplementedException();
+        var user = await _userDb.Users
+            .FirstOrDefaultAsync(x => x.Id == userId);
+        return user;
     }
 
     public async Task<User?> GetUserByEmail(string email)

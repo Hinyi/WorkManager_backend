@@ -8,5 +8,6 @@ public class UserProfile : Profile
     public UserProfile()
     {
         CreateMap<CreateUserCommand, Entities.User>();
+        CreateMap<Entities.User, UserDTO>();
     }
 }
