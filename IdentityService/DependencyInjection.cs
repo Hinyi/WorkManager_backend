@@ -15,7 +15,7 @@ namespace IdentityService;
 
 public static class DependencyInjection
 {
-    public static void Users(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection  Users(this IServiceCollection services, IConfiguration configuration)
     {
         // var options = configuration.GetOptions<PostgresOptions>("UserDb");
         //
@@ -33,22 +33,20 @@ public static class DependencyInjection
          // Add AutoMapper to user entities
         services.AddAutoMapper(typeof(UserProfile).Assembly);
 
-        services.AddValidatorsFromAssembly(applicationAssembly)
-            .AddFluentValidationAutoValidation();
-        services.AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
-            // .AddFluentValidationAutoValidation();
-       
-        // services.AddValidatorsFromAssembly(typeof(Aplication.AssemblyReference).Assembly);
-        // services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
-        // services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
-        // services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+        // Validation setup - important to get this right
+        // services.AddValidatorsFromAssembly(typeof(CreateUserCommandValidator).Assembly);
+        services.AddValidatorsFromAssembly(applicationAssembly);
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+        // Optional: Add automatic validation for API controllers
+        services.AddFluentValidationAutoValidation()
+            .AddFluentValidationClientsideAdapters();
         
         services.AddScoped<IUserRepository, UserRepository>();
-        
         services.AddHttpContextAccessor();
 
         
-        // return services;
-        
+         return services;
     }
 }

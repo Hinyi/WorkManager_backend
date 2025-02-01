@@ -22,6 +22,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, strin
     public async Task<string> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Creating user with {@Request}", request);
+        
         var newUser = _mapper.Map<Entities.User>(request);
         var id = newUser.Id;
         await _userRepository.AddUser(newUser);

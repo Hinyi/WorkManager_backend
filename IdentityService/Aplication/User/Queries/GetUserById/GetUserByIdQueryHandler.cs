@@ -26,7 +26,7 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDTO
         if (user == null)
         {
             _logger.LogWarning("User with id: {Id} was not found", request.Id);
-            throw new UserNotFound("User with id: {Id} was not found", request.Id);
+            throw new UserNotFound(request.Id);
         }
         
         var result = _mapper.Map<UserDTO>(user);

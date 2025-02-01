@@ -1,5 +1,6 @@
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace IdentityService.Services;
 
@@ -7,6 +8,7 @@ public class ValidationBehavior<TRequest, TRespone> : IPipelineBehavior<TRequest
     where TRequest : IRequest<TRespone>
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
+    private readonly ILogger<ValidationBehavior<TRequest, TRespone>> _logger;
 
     public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
     {
@@ -15,6 +17,8 @@ public class ValidationBehavior<TRequest, TRespone> : IPipelineBehavior<TRequest
     
     public async Task<TRespone> Handle(TRequest request, RequestHandlerDelegate<TRespone> next, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Starting validation for request {RequestType}", typeof(TRequest).Name);
+        
         if (_validators.Any())
         {
             var context = new ValidationContext<TRequest>(request);
