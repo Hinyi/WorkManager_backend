@@ -9,9 +9,9 @@ namespace IdentityService.Aplication.User.Queries.GetUserById;
 
 public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDTO>
 {
-    private readonly ILogger<GetUserByIdQueryHandler> _logger;
     private readonly IMapper _mapper;
     private readonly IUserRepository _userRepository;
+    private readonly ILogger<GetUserByIdQueryHandler> _logger;
 
     public GetUserByIdQueryHandler(ILogger<GetUserByIdQueryHandler> logger, IUserRepository userRepository, IMapper mapper)
     {
@@ -25,7 +25,7 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDTO
         var user = await _userRepository.GetUserById(request.Id);
         if (user == null)
         {
-            _logger.LogWarning("User with id: {Id} was not found", request.Id);
+            //_logger.LogWarning("User with id: {Id} was not found", request.Id);
             throw new UserNotFound(request.Id);
         }
         

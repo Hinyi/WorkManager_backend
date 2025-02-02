@@ -10,12 +10,13 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace IdentityService;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection  Users(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection Users(this IServiceCollection services, IConfiguration configuration)
     {
         // var options = configuration.GetOptions<PostgresOptions>("UserDb");
         //
@@ -24,10 +25,12 @@ public static class DependencyInjection
                 .UseNpgsql(configuration.GetConnectionString("UserDb")));
 
         var applicationAssembly = typeof(DependencyInjection).Assembly;
+
+        // Add MediatR to user entities
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblyContaining<UserAssemblyReference>();
-            cfg.AddBehavior(typeof(IPipelineBehavior<,>) ,typeof(ValidationBehavior<,>));
+            // cfg.AddBehavior(typeof(IPipelineBehavior<,>) ,typeof(ValidationBehavior<,>));
         });
 
          // Add AutoMapper to user entities
