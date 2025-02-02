@@ -12,6 +12,7 @@ public class CreateUserCommandHandlerTests
     {
         // Arrange
         var mediatorMock = new Mock<IMediator>();
+        
 
     }
 }
