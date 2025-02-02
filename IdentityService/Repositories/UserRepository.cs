@@ -35,6 +35,8 @@ public class UserRepository :IUserRepository
 
     public async Task<User?> GetUserByEmail(string email)
     {
-        throw new NotImplementedException();
+        var user = await _userDb.Users
+            .FirstOrDefaultAsync(x => x.Email == email);
+        return user;
     }
 }
