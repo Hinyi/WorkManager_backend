@@ -26,15 +26,10 @@ public static class DependencyInjection
 
         var applicationAssembly = typeof(DependencyInjection).Assembly;
 
-        var serviceProvider = services.BuildServiceProvider();
-        var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-
-        services.AddSingleton(typeof(ILogger<>), typeof(Logger<>)); 
         // Add MediatR to user entities
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblyContaining<UserAssemblyReference>();
-            cfg.RegisterServicesFromAssemblyContaining<CreateUserCommandHandler>();
             // cfg.AddBehavior(typeof(IPipelineBehavior<,>) ,typeof(ValidationBehavior<,>));
         });
 
@@ -50,13 +45,6 @@ public static class DependencyInjection
         // Optional: Add automatic validation for API controllers
         services.AddFluentValidationAutoValidation()
             .AddFluentValidationClientsideAdapters();
-        
-        services.AddLogging(logging =>
-        {
-            logging.ClearProviders();
-            logging.AddConsole();
-            logging.AddDebug();
-        });
         
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddHttpContextAccessor();
