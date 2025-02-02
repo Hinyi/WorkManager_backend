@@ -46,6 +46,7 @@ public static class DependencyInjection
         services.AddFluentValidationAutoValidation()
             .AddFluentValidationClientsideAdapters();
         
+        
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddHttpContextAccessor();
 
