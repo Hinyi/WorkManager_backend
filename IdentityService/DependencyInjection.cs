@@ -2,11 +2,13 @@
 using FluentValidation.AspNetCore;
 using IdentityService.Aplication.User.Command.CreateUserCommand;
 using IdentityService.Aplication.User.DTOs;
+using IdentityService.Authentication.JwtOptions;
 using IdentityService.Interface;
 using IdentityService.Persistence;
 using IdentityService.Repositories;
 using IdentityService.Services;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,6 +48,13 @@ public static class DependencyInjection
         services.AddFluentValidationAutoValidation()
             .AddFluentValidationClientsideAdapters();
         
+        // Add services
+        services.ConfigureOptions<JwtOptionsSetup>();
+        services.ConfigureOptions<JwtBearerOptions>();
+        
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer();
+        services.AddAuthorization();
         
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddHttpContextAccessor();
