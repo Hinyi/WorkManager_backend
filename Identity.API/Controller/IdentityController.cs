@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using IdentityService.Aplication.User.Command.CreateUserCommand;
 using IdentityService.Aplication.User.Queries.GetUserByEmail;
 using IdentityService.Aplication.User.Queries.GetUserById;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers;
 
@@ -38,5 +39,12 @@ public sealed class IdentityController : ControllerBase
     {
         var response = await _mediator.Send(new GetUserByEmailQuery(email));
         return Ok(response);
+    }
+    
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> SomeResponse()
+    {
+        return Ok("Hello from Identity API");
     }
 }

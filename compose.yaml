@@ -21,8 +21,8 @@ services:
       context: .
       dockerfile: /Identity.API/Dockerfile
     ports:
-      - "8080:8080"
-      - "8081:8081"
+      - "8080:5600"
+      - "8081:5601"
     environment:
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__UserDb=Host=identity.database;Port=5432;Database=identity;Username=postgres;Password=postgres;Include Error Detail=true
