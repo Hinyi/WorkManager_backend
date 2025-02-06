@@ -1,3 +1,5 @@
+using Shared.Authentication;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,6 +11,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+
+builder.Services.AddJwt(builder.Configuration);
+builder.Services.AddAuthorizationPolicies();
 
 builder.Services.AddCors(options =>
 {
@@ -32,6 +37,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapReverseProxy();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

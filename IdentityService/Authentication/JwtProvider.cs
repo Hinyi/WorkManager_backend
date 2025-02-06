@@ -10,13 +10,11 @@ namespace IdentityService.Authentication;
 
 internal sealed class JwtProvider : IJwtProvider
 {
-    private readonly JwtBearerOptions _jwtOptions;
     private readonly JwtSettings _jwtSettings;
 
-    public JwtProvider(JwtSettings jwtSettings, JwtBearerOptions jwtOptions)
+    public JwtProvider(JwtSettings jwtSettings)
     {
         _jwtSettings = jwtSettings;
-        _jwtOptions = jwtOptions;
     }
 
     public string GenereateJwtToken(User user)
@@ -27,7 +25,7 @@ internal sealed class JwtProvider : IJwtProvider
             new Claim(JwtRegisteredClaimNames.Sub, user.Id),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim("role", "Admin") // Assign role claim (Example: Admin, User, Manager)
+            //new Claim("role", "Admin") // Assign role claim (Example: Admin, User, Manager)
         };
 
         var token = new JwtSecurityToken(

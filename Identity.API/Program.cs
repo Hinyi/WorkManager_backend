@@ -1,4 +1,5 @@
 using IdentityService;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using Shared;
 using Shared.Middleware;
@@ -13,7 +14,33 @@ builder.Services.AddShared();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter 'Bearer [your token]'"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
 
 builder.Host.UseSerilog((context, configuration) =>
 {
@@ -36,6 +63,7 @@ app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.UseShared();
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
