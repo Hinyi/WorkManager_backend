@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Shared.Authentication;
 
 namespace IdentityService;
 
@@ -49,7 +50,7 @@ public static class DependencyInjection
             .AddFluentValidationClientsideAdapters();
         
         // Add services
-        services.ConfigureOptions<JwtOptionsSetup>();
+        services.ConfigureOptions<JwtSettingsSetup>();
         services.ConfigureOptions<JwtBearerOptions>();
         
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
