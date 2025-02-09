@@ -1,5 +1,6 @@
 using AutoMapper;
 using IdentityService.Interface;
+using IdentityService.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -25,10 +26,13 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUser.CreateUserCom
     {
         _logger.LogInformation("Creating user with {@Request}", request);
         
+        var passwordHash = PasswordHasher.GetHash(request.Password);
+        
         var newUser = _mapper.Map<Entities.User>(request);
+        newUser.PasswordHash = passwordHash;
         var id = newUser.Id;
         await _userRepository.AddUser(newUser);
         
-        return id.ToString();
+        return id;
     }
 }

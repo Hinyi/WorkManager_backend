@@ -50,7 +50,9 @@ public static class DependencyInjection
             .AddFluentValidationClientsideAdapters();
         
 
-        
+        // Add authentication
+        services.AddJwt(configuration);
+        services.AddAuthorizationPolicies();
 
         
         // Add services
@@ -61,9 +63,7 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddHttpContextAccessor();
         
-        // Add authentication
-        services.AddJwt(configuration);
-        services.AddAuthorizationPolicies();
+
         
          return services;
     }
