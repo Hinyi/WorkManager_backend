@@ -3,9 +3,9 @@ using IdentityService.Interface;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace IdentityService.Aplication.User.Command.CreateUserCommand;
+namespace IdentityService.Aplication.User.Command.CreateUser;
 
-public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, string>
+public class CreateUserCommandHandler : IRequestHandler<CreateUser.CreateUserCommand, string>
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
@@ -21,7 +21,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, strin
         //_logger.LogInformation("CreateUserCommandHandler initialized.");
     }
 
-    public async Task<string> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(CreateUser.CreateUserCommand request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Creating user with {@Request}", request);
         
