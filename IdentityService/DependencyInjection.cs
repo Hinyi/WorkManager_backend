@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Shared.Authentication;
 using Shared.Services.CurrentUserProvider;
 
@@ -51,6 +52,8 @@ public static class DependencyInjection
         
 
         // Add authentication
+        //services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
+        
         services.AddJwt(configuration);
         services.AddAuthorizationPolicies();
 
@@ -59,7 +62,7 @@ public static class DependencyInjection
         //services.ConfigureOptions<JwtSettingsSetup>();
         //services.ConfigureOptions<JwtBearerOptions>();
         services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
-        services.AddScoped<IJwtProvider, JwtProvider>();    
+        services.AddSingleton<IJwtProvider, JwtProvider>();    
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddHttpContextAccessor();
         
