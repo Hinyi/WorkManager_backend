@@ -1,5 +1,5 @@
 using AutoMapper;
-using IdentityService.Aplication.User.Command.CreateUserCommand;
+using IdentityService.Aplication.User.Command.CreateUser;
 
 namespace IdentityService.Aplication.User.DTOs;
 

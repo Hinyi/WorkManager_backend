@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using IdentityService.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Shared.Authentication;
 
@@ -12,9 +13,9 @@ internal sealed class JwtProvider : IJwtProvider
 {
     private readonly JwtSettings _jwtSettings;
 
-    public JwtProvider(JwtSettings jwtSettings)
+    public JwtProvider(IOptions<JwtSettings> jwtSettings)
     {
-        _jwtSettings = jwtSettings;
+        _jwtSettings = jwtSettings.Value;
     }
 
     public string GenereateJwtToken(User user)

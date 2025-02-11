@@ -1,11 +1,12 @@
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using IdentityService.Aplication.User.Command.CreateUserCommand;
+using IdentityService.Aplication.User.Command.CreateUser;
+using IdentityService.Aplication.User.Command.LoginUser;
 using IdentityService.Aplication.User.Queries.GetUserByEmail;
 using IdentityService.Aplication.User.Queries.GetUserById;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
+namespace Identity.API.Controller;
 
 
 [ApiController]
@@ -27,6 +28,14 @@ public sealed class IdentityController : ControllerBase
         var response = await _mediator.Send(command);
         return Ok(response);
     }
+    
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
+    {
+        var response = await _mediator.Send(command);
+        return Ok(response);
+    }
+        
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUserById([FromRoute] string id)

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
-using IdentityService.Aplication.User.Command.CreateUserCommand;
 using IdentityService.Aplication.User.DTOs;
+using IdentityService.Authentication;
 using IdentityService.Interface;
 using IdentityService.Persistence;
 using IdentityService.Repositories;
@@ -12,7 +12,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Shared.Authentication;
+using Shared.Services.CurrentUserProvider;
 
 namespace IdentityService;
 
@@ -27,7 +29,7 @@ public static class DependencyInjection
                 .UseNpgsql(configuration.GetConnectionString("UserDb")));
 
         var applicationAssembly = typeof(DependencyInjection).Assembly;
-
+        
         // Add MediatR to user entities
         services.AddMediatR(cfg =>
         {
@@ -48,17 +50,22 @@ public static class DependencyInjection
         services.AddFluentValidationAutoValidation()
             .AddFluentValidationClientsideAdapters();
         
+
+        // Add authentication
+        //services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
+        
+        services.AddJwt(configuration);
+        services.AddAuthorizationPolicies();
+
+        
         // Add services
         //services.ConfigureOptions<JwtSettingsSetup>();
         //services.ConfigureOptions<JwtBearerOptions>();
-        
-        // Add authentication
-        services.AddJwt(configuration);
-        services.AddAuthorizationPolicies();
-        
-        
+        services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
+        services.AddSingleton<IJwtProvider, JwtProvider>();    
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddHttpContextAccessor();
+        
 
         
          return services;
