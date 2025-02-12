@@ -26,15 +26,16 @@ public static class JwtExtension
             .AddJwtBearer(
                 options =>
                 {
-                    options.Authority = configuration["Jwt:Authority"]; //jwtSettings?.Authority;
+                    options.Authority = jwtSettings?.Authority;
+                        //configuration["Jwt:Authority"]; 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = configuration["Jwt:Issuer"], //jwtSettings?.Issuer,
-                        ValidAudience = configuration["Jwt:Audience"], //jwtSettings?.Audience,
+                        ValidIssuer = jwtSettings?.Issuer, //configuration["Jwt:Issuer"], 
+                        ValidAudience = jwtSettings?.Audience,//configuration["Jwt:Audience"], 
                         IssuerSigningKey = new SymmetricSecurityKey(key)
                             
                     };
