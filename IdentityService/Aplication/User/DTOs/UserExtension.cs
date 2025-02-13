@@ -4,11 +4,21 @@ public class UserExtension : IUserMapper
 {
     public UserDTO MapToUserDto(Entities.User user)
     {
-        throw new NotImplementedException();
+        return new UserDTO
+        {
+            Id = user.Id,
+            UserName = user.UserName,
+            Email = user.Email,
+        };
     }
 
-    public Entities.User MapToUser(UserDTO userDTO)
+    public Entities.User MapToUser(UserDTO userDtO)
     {
-        throw new NotImplementedException();
+        return new Entities.User
+        {
+            Id = userDtO.Id,
+            UserName = userDtO.UserName,
+            Email = userDtO.Email,
+        };
     }
 }
