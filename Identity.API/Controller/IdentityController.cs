@@ -1,5 +1,6 @@
 using IdentityService.Aplication.User.Command.CreateUser;
 using IdentityService.Aplication.User.Command.LoginUser;
+using IdentityService.Aplication.User.Command.RefreshToken;
 using IdentityService.Aplication.User.Queries.GetUserByEmail;
 using IdentityService.Aplication.User.Queries.GetUserById;
 using MediatR;
@@ -36,7 +37,13 @@ public sealed class IdentityController : ControllerBase
         return Ok(response);
     }
         
-
+    [HttpPost("refreshToken")]
+    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenCommand command)
+    {
+        var response = await _mediator.Send(command);
+        return Ok(response);
+    }
+    
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUserById([FromRoute] string id)
     {
