@@ -5,6 +5,7 @@ using IdentityService.Services;
 using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Shared.Enum;
 
 namespace IdentityService.Aplication.User.Command.CreateUser;
 
@@ -35,14 +36,15 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, strin
         var newUser = _mapper.Map<Entities.User>(request);
         newUser.PasswordHash = passwordHash;
         var id = newUser.Id;
+        newUser.Role = Roles.User.ToString();
         await _userRepository.AddUser(newUser);
         
-        await _publishEndpoint.Publish(new UserCreatedEvent
-        {
-            Id = newUser.Id,
-            CreatedOnUtc = DateTime.UtcNow,
-            
-        }, cancellationToken);
+        // await _publishEndpoint.Publish(new UserCreatedEvent
+        // {
+        //     Id = newUser.Id,
+        //     CreatedOnUtc = DateTime.UtcNow,
+        //     
+        // }, cancellationToken);
         
         return id;
     }

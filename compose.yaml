@@ -46,17 +46,20 @@ services:
       - proxybackend
        
   workmanager-mq:
-    image: rabbitmq:management
-    container_name: workmanager-mq
-    hostname: workmanager-mq
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
     volumes:
       - ./.containers/rabbitmq/data:/var/lib/rabbitmq
       - ./.containers/rabbitmq/log:/var/log/rabbitmq
     ports:
       - "5672:5672"
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: "guest"
       RABBITMQ_DEFAULT_PASS: "guest"
+    networks:
+        - proxybackend
     
 networks:
   proxybackend:

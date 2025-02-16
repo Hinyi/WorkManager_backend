@@ -69,7 +69,7 @@ public static class DependencyInjection
         services.AddHttpContextAccessor();
         
         // Add MassTransit
-        services.AddRabbitMq(configuration);
+        // services.AddRabbitMq(configuration);
         
          return services;
     }
