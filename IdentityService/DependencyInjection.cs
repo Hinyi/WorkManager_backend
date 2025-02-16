@@ -6,6 +6,7 @@ using IdentityService.Interface;
 using IdentityService.Persistence;
 using IdentityService.Repositories;
 using IdentityService.Services;
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Shared.Authentication;
+using Shared.MessageBroker;
 using Shared.Services.CurrentUserProvider;
 
 namespace IdentityService;
@@ -66,7 +68,8 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddHttpContextAccessor();
         
-
+        // Add MassTransit
+        services.AddRabbitMq(configuration);
         
          return services;
     }
