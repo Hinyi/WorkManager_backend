@@ -27,7 +27,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, strin
         //_logger.LogInformation("CreateUserCommandHandler initialized.");
     }
 
-    public async Task<string> Handle(CreateUser.CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Creating user with {@Request}", request);
         

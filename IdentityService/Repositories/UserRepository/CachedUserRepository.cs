@@ -30,17 +30,26 @@ public class CachedUserRepository : IUserRepository
     public async Task<User?> GetUserById(string userId, CancellationToken cancellationToken = default)
     {
         string key = $"user-{userId}";
-        var cachedUser = await _distributedCache.GetStringAsync(key);
+        var cachedUser = await _distributedCache.GetStringAsync(key, cancellationToken);
+
+        var cacheOptions = new DistributedCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2),
+        };
 
         User? user;
         if (string.IsNullOrEmpty(cachedUser))
         {
             user = await _decoratedUser.GetUserById(userId, cancellationToken);
-            if(user is null) return user;
+            if(user is null)
+            {
+                return user;
+            }
 
             await _distributedCache.SetStringAsync(
                 key,
                 JsonConvert.SerializeObject(user),
+                cacheOptions,
                 cancellationToken);
 
             return user;
