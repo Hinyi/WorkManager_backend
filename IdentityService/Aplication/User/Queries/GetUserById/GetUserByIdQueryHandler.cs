@@ -22,7 +22,7 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDTO
 
     public async Task<UserDTO> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetUserById(request.Id);
+        var user = await _userRepository.GetUserById(request.Id, cancellationToken);
         if (user == null)
         {
             //_logger.LogWarning("User with id: {Id} was not found", request.Id);

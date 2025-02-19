@@ -5,6 +5,7 @@ using IdentityService.Authentication;
 using IdentityService.Interface;
 using IdentityService.Persistence;
 using IdentityService.Repositories;
+using IdentityService.Repositories.UserRepository;
 using IdentityService.Services;
 using MassTransit;
 using MediatR;
@@ -66,7 +67,16 @@ public static class DependencyInjection
         services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
         services.AddSingleton<IJwtProvider, JwtProvider>();    
         services.AddScoped<IUserRepository, UserRepository>();
+        services.Decorate<IUserRepository, CachedUserRepository>();
         services.AddHttpContextAccessor();
+        
+        
+        // Add cached used repository
+        services.AddStackExchangeRedisCache(options =>
+        {
+            string connectionString = configuration.GetConnectionString("Redis");
+            options.Configuration = connectionString;
+        });
         
         // Add MassTransit
         // services.AddRabbitMq(configuration);
