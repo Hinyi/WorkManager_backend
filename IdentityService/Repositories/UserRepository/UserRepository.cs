@@ -38,4 +38,9 @@ public sealed class UserRepository : IUserRepository
             .FirstOrDefaultAsync(x => x.Email == email);
         return user;
     }
+
+    public async Task<User> UpdateUser(User user)
+    {
+        throw new NotImplementedException();
+    }
 }

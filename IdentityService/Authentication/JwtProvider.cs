@@ -41,7 +41,7 @@ internal sealed class JwtProvider : IJwtProvider
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public string GenerateRefrestToken()
+    public string GenerateRefreshToken()
     {
         var randomBytes = new byte[32];
         using (var rng = RandomNumberGenerator.Create())
