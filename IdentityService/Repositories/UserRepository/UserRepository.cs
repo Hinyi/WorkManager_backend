@@ -1,12 +1,11 @@
 using IdentityService.Entities;
-using IdentityService.Entities.ValueObject;
 using IdentityService.Interface;
 using IdentityService.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace IdentityService.Repositories;
+namespace IdentityService.Repositories.UserRepository;
 
-public class UserRepository :IUserRepository
+public sealed class UserRepository : IUserRepository
 {
     private readonly UserDbContext _userDb;
 
@@ -26,7 +25,7 @@ public class UserRepository :IUserRepository
         throw new NotImplementedException();
     }
 
-    public async Task<User?> GetUserById(string userId)
+    public async Task<User?> GetUserById(string userId, CancellationToken cancellationToken)
     {
         var user = await _userDb.Users
             .FirstOrDefaultAsync(x => x.Id == userId);
