@@ -60,6 +60,15 @@ services:
       RABBITMQ_DEFAULT_PASS: "guest"
     networks:
         - proxybackend
+  
+  cache:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - proxybackend
+      
     
 networks:
   proxybackend:

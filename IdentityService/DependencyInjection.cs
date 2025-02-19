@@ -79,8 +79,8 @@ public static class DependencyInjection
         });
         
         // Add MassTransit
-        // services.AddRabbitMq(configuration);
+        services.AddRabbitMq(configuration);
         
-         return services;
+        return services;
     }
 }
