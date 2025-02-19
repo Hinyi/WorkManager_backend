@@ -20,7 +20,7 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUser.CreateUse
         
         RuleFor(x => x.FirstName)
             .NotEmpty()
-            .MaximumLength(2)
+            .MaximumLength(50)
             .WithMessage("First name must be less than 50 characters");
 
         RuleFor(x => x.LastName).NotEmpty();
