@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace IdentityService.Aplication.User.Command.LoginUser;
 
-internal sealed class LoginCommandHandler : IRequestHandler<LoginUserCommand, string>
+internal sealed class LoginCommandHandler : IRequestHandler<LoginUserCommand, LoginUserResponse>
 {
     private readonly IUserRepository _userRepository;
     private readonly ILogger<LoginCommandHandler> _logger;
@@ -19,7 +19,7 @@ internal sealed class LoginCommandHandler : IRequestHandler<LoginUserCommand, st
         _jwtProvider = jwtProvider;
     }
     
-    public async Task<string> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+    public async Task<LoginUserResponse> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetUserByEmail(request.Email);
         if (user == null)
@@ -34,7 +34,16 @@ internal sealed class LoginCommandHandler : IRequestHandler<LoginUserCommand, st
         }
         
         var token = _jwtProvider.GenereateJwtToken(user);
+        var refreshToken = _jwtProvider.GenerateRefreshToken();
         
-        return token;
+        user.RefreshToken = refreshToken;
+        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddMinutes(60);
+        
+        await _userRepository.UpdateUser(user);
+        
+        return new LoginUserResponse(
+            token,
+            refreshToken
+        );
     }
 }

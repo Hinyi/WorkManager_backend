@@ -67,4 +67,7 @@ public class CachedUserRepository : IUserRepository
 
     public async Task<User?> GetUserByEmail(string email) =>
         await _decoratedUser.GetUserByEmail(email);
+
+    public async Task<User> UpdateUser(User user) =>
+        await _decoratedUser.UpdateUser(user);
 }
