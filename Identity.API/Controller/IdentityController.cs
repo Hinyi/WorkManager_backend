@@ -1,6 +1,7 @@
 using IdentityService.Aplication.User.Command.CreateUser;
 using IdentityService.Aplication.User.Command.LoginUser;
 using IdentityService.Aplication.User.Command.RefreshToken;
+using IdentityService.Aplication.User.Command.RevokeToken;
 using IdentityService.Aplication.User.Queries.GetUserByEmail;
 using IdentityService.Aplication.User.Queries.GetUserById;
 using MediatR;
@@ -56,6 +57,14 @@ public sealed class IdentityController : ControllerBase
         var response = await _mediator.Send(new GetUserByEmailQuery(email));
         return Ok(response);
     }
+    
+    [HttpPost("logout")]
+    public async Task<IActionResult> RevokeToken([FromBody] RevokeTokenCommand command)
+    {
+        await _mediator.Send(command);
+        return Ok();
+    }
+
     
     [Authorize]
     [HttpGet]
