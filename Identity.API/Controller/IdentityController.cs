@@ -38,12 +38,6 @@ public sealed class IdentityController : ControllerBase
         return Ok(response);
     }
         
-    [HttpPost("refreshToken")]
-    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenCommand command)
-    {
-        var response = await _mediator.Send(command);
-        return Ok(response);
-    }
     
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUserById([FromRoute] string id)
@@ -58,11 +52,18 @@ public sealed class IdentityController : ControllerBase
         return Ok(response);
     }
     
-    [HttpPost("logout")]
+    [HttpPost("refreshToken")]
+    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenCommand command)
+    {
+        var response = await _mediator.Send(command);
+        return Ok(response);
+    }
+    
+    [HttpPost("revokeToken")]
     public async Task<IActionResult> RevokeToken([FromBody] RevokeTokenCommand command)
     {
-        await _mediator.Send(command);
-        return Ok();
+        var response = await _mediator.Send(command);
+        return Ok(response);
     }
 
     

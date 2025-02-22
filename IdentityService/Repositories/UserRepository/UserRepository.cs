@@ -43,4 +43,9 @@ public sealed class UserRepository : IUserRepository
     {
         throw new NotImplementedException();
     }
+
+    public async Task<User?> GetUserByRefreshToken(string refreshToken, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }
