@@ -70,4 +70,9 @@ public class CachedUserRepository : IUserRepository
 
     public async Task<User> UpdateUser(User user) =>
         await _decoratedUser.UpdateUser(user);
+
+    public async Task<User?> GetUserByRefreshToken(string refreshToken, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

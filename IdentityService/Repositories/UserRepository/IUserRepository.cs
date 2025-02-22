@@ -10,4 +10,5 @@ public interface IUserRepository
     Task<User?> GetUserById(string userId, CancellationToken cancellationToken);
     Task<User?> GetUserByEmail(string email);
     Task<User> UpdateUser(User user);
+    Task<User?> GetUserByRefreshToken(string refreshToken, CancellationToken cancellationToken);
 }
