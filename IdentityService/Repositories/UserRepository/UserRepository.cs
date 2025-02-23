@@ -22,7 +22,8 @@ public sealed class UserRepository : IUserRepository
  
     public async Task DeleteUser(User user)
     {
-        throw new NotImplementedException();
+        _userDb.Remove(user);
+        await _userDb.SaveChangesAsync();
     }
 
     public async Task<User?> GetUserById(string userId, CancellationToken cancellationToken)
@@ -41,11 +42,16 @@ public sealed class UserRepository : IUserRepository
 
     public async Task<User> UpdateUser(User user)
     {
-        throw new NotImplementedException();
+        _userDb.Update(user);
+        await _userDb.SaveChangesAsync();
+        return user;
     }
 
     public async Task<User?> GetUserByRefreshToken(string refreshToken, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var user = await _userDb.Users
+            .FirstOrDefaultAsync(x => x.RefreshToken == refreshToken, cancellationToken: cancellationToken);
+
+        return user;
     }
 }

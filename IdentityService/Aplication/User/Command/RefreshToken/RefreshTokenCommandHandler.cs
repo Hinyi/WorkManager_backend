@@ -7,6 +7,12 @@ using Microsoft.Extensions.Logging;
 
 namespace IdentityService.Aplication.User.Command.RefreshToken;
 
+/// <summary>
+/// Endpoint for refreshing the token
+/// </summary>
+/// <param name=""></param>
+/// <returns>returns new token and refreshed token</returns>
+
 internal sealed class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, RefreshTokenResponse>
 {
     private readonly IUserRepository _userRepository;
