@@ -28,7 +28,7 @@ public class GetUserByEmailQueryHandler : IRequestHandler<GetUserByEmailQuery, U
         var user = await _userRepository.GetUserByEmail(request.email);
         if (user == null)
         {
-            _logger.LogWarning("User with id: {Id} was not found", request.email);
+            _logger.LogWarning("User with id: {email} was not found", request.email);
             throw new UserNotFound(request.email);
         }
         

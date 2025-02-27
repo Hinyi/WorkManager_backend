@@ -1,5 +1,6 @@
 using AutoMapper;
 using Identity.Contracts;
+using IdentityService.Exceptions;
 using IdentityService.Interface;
 using IdentityService.Services;
 using MassTransit;
@@ -30,7 +31,13 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, strin
     public async Task<string> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Creating user with {@Request}", request);
-        
+
+        if (_userRepository.GetUserByEmail(request.Email) != null)
+        {
+            _logger.LogInformation("User with this email already exist");
+            throw new UserAlreadyExistExceptions("User with this email already exist");
+        }
+            
         var passwordHash = PasswordHasher.GetHash(request.Password);
         
         var newUser = _mapper.Map<Entities.User>(request);
