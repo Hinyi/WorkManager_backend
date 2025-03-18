@@ -73,3 +73,8 @@ services:
 networks:
   proxybackend:
     driver: bridge
+  task.api:
+    image: task.api
+    build:
+      context: .
+      dockerfile: Task.API/Dockerfile
