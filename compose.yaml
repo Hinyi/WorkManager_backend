@@ -69,12 +69,30 @@ services:
     networks:
       - proxybackend
       
-    
-networks:
-  proxybackend:
-    driver: bridge
   task.api:
     image: task.api
     build:
       context: .
-      dockerfile: Task.API/Dockerfile
+      dockerfile: Task.API/Dockerfile    
+    depends_on:
+      - task.database
+      
+  task.database:
+    image: mongodb
+    container_name: task.database
+    ports:
+      - "27017:27017"
+    environment:
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      # named volumes
+      - mongodb:/data/db
+      - mongoconfig:/data/configdb
+    networks:
+        - proxybackend
+    
+networks:
+  proxybackend:
+    driver: bridge
+  
