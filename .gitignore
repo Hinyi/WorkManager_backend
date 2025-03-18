@@ -12,6 +12,8 @@
 /API/appsettings.Development.json
 /Identity.API/appsettings.Development.json
 /APIGateway/appsettings.Development.json
+/Task.API/appsettings.Development.json
+
 /.idea
 API
 /API
