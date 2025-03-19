@@ -64,6 +64,7 @@ public static class DependencyInjection
         // Add services
         //services.ConfigureOptions<JwtSettingsSetup>();
         //services.ConfigureOptions<JwtBearerOptions>();
+        services.AddScoped<IUserMapper, UserExtension>();
         services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
         services.AddSingleton<IJwtProvider, JwtProvider>();    
         services.AddScoped<IUserRepository, UserRepository>();
