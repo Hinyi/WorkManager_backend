@@ -1,10 +1,11 @@
-using IdentityService.Aplication.User.DTOs;
+using IdentityService.Application.User.DTOs;
+using IdentityService.Application.User.DTOs;
 using IdentityService.Exceptions;
 using IdentityService.Interface;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace IdentityService.Aplication.User.Command.UpdateUser;
+namespace IdentityService.Application.User.Command.UpdateUser;
 
 public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserDTO>
 {

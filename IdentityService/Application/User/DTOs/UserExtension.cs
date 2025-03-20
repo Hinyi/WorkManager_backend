@@ -1,4 +1,6 @@
-namespace IdentityService.Aplication.User.DTOs;
+using IdentityService.Application.User.DTOs;
+
+namespace IdentityService.Application.User.DTOs;
 
 public class UserExtension : IUserMapper
 {

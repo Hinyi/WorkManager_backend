@@ -65,12 +65,15 @@ public class CachedUserRepository : IUserRepository
         return user;
     }
 
-    public async Task<User?> GetUserByEmail(string email) =>
-        await _decoratedUser.GetUserByEmail(email);
+    public Task<User?> GetUserByEmail(string email, CancellationToken cancellationToken = default) =>
+         _decoratedUser.GetUserByEmail(email);
 
     public async Task<User> UpdateUser(User user) =>
         await _decoratedUser.UpdateUser(user);
 
     public async Task<User?> GetUserByRefreshToken(string refreshToken, CancellationToken cancellationToken)
         => await _decoratedUser.GetUserByRefreshToken(refreshToken, cancellationToken);
+
+    public Task<bool> IsEmailUnique(string email, CancellationToken cancellationToken = default)
+        => _decoratedUser.IsEmailUnique(email, cancellationToken);
 }

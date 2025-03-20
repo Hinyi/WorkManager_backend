@@ -1,4 +1,4 @@
-namespace IdentityService.Aplication.User.DTOs;
+namespace IdentityService.Application.User.DTOs;
 
 public class UserDTO
 {

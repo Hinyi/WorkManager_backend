@@ -1,5 +1,5 @@
 using MediatR;
 
-namespace IdentityService.Aplication.User.Command.RevokeToken;
+namespace IdentityService.Application.User.Command.RevokeToken;
 
 public record RevokeTokenCommand(string refreshToken) : IRequest<string>;

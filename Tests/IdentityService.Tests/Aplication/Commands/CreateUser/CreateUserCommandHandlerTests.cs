@@ -1,5 +1,6 @@
 using AutoMapper;
 using IdentityService.Aplication.User.Command.CreateUser;
+using IdentityService.Application.User.Command.CreateUser;
 using IdentityService.Entities;
 using IdentityService.Interface;
 using MediatR;

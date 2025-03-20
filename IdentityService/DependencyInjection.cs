@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
-using IdentityService.Aplication.User.DTOs;
+using IdentityService.Application.User.DTOs;
 using IdentityService.Authentication;
 using IdentityService.Interface;
 using IdentityService.Persistence;
@@ -80,7 +80,7 @@ public static class DependencyInjection
         });
         
         // Add MassTransit
-        services.AddRabbitMq(configuration);
+        //services.AddRabbitMq(configuration);
         
         return services;
     }

@@ -33,10 +33,10 @@ public sealed class UserRepository : IUserRepository
         return user;
     }
 
-    public async Task<User?> GetUserByEmail(string email)
+    public async Task<User?> GetUserByEmail(string email, CancellationToken cancellationToken = default)
     {
         var user = await _userDb.Users
-            .FirstOrDefaultAsync(x => x.Email == email);
+            .FirstOrDefaultAsync(x => x.Email == email, cancellationToken);
         return user;
     }
 
@@ -53,5 +53,12 @@ public sealed class UserRepository : IUserRepository
             .FirstOrDefaultAsync(x => x.RefreshToken == refreshToken, cancellationToken: cancellationToken);
 
         return user;
+    }
+
+    public async Task<bool> IsEmailUnique(string email, CancellationToken cancellationToken)
+    {
+        var user = await _userDb.Users
+            .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower(), cancellationToken);
+        return user == null;
     }
 }

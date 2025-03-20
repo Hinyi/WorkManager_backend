@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace IdentityService.Aplication.User.Command.CreateUser;
+namespace IdentityService.Application.User.Command.CreateUser;
 
 public class CreateUserCommandValidator : AbstractValidator<CreateUser.CreateUserCommand>
 {

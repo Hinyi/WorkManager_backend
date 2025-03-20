@@ -1,4 +1,4 @@
-namespace IdentityService.Aplication.User.Command.RefreshToken;
+namespace IdentityService.Application.User.Command.RefreshToken;
 
 public record RefreshTokenResponse(string token, string refreshToken)
 {

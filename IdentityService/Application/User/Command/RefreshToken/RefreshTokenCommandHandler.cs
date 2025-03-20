@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Logging;
 
-namespace IdentityService.Aplication.User.Command.RefreshToken;
+namespace IdentityService.Application.User.Command.RefreshToken;
 
 /// <summary>
 /// Endpoint for refreshing the token
