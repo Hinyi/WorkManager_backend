@@ -1,7 +1,8 @@
 using AutoMapper;
-using IdentityService.Aplication.User.Command.CreateUser;
+using IdentityService.Application.User.Command.CreateUser;
+using IdentityService.Application.User.DTOs;
 
-namespace IdentityService.Aplication.User.DTOs;
+namespace IdentityService.Application.User.DTOs;
 
 public class UserProfile : Profile
 {

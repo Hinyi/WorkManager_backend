@@ -1,5 +1,5 @@
 using MediatR;
 
-namespace IdentityService.Aplication.User.Command.RefreshToken;
+namespace IdentityService.Application.User.Command.RefreshToken;
 
 public record RefreshTokenCommand(string refreshToken) : IRequest<RefreshTokenResponse>;

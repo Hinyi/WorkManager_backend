@@ -5,7 +5,7 @@ using IdentityService.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace IdentityService.Aplication.User.Command.LoginUser;
+namespace IdentityService.Application.User.Command.LoginUser;
 
 internal sealed class LoginCommandHandler : IRequestHandler<LoginUserCommand, LoginUserResponse>
 {

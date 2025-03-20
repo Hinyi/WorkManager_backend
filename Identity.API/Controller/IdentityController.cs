@@ -1,9 +1,9 @@
-using IdentityService.Aplication.User.Command.CreateUser;
-using IdentityService.Aplication.User.Command.LoginUser;
-using IdentityService.Aplication.User.Command.RefreshToken;
-using IdentityService.Aplication.User.Command.RevokeToken;
-using IdentityService.Aplication.User.Queries.GetUserByEmail;
-using IdentityService.Aplication.User.Queries.GetUserById;
+using IdentityService.Application.User.Command.CreateUser;
+using IdentityService.Application.User.Command.LoginUser;
+using IdentityService.Application.User.Command.RefreshToken;
+using IdentityService.Application.User.Command.RevokeToken;
+using IdentityService.Application.User.Queries.GetUserByEmail;
+using IdentityService.Application.User.Queries.GetUserById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +24,11 @@ public sealed class IdentityController : ControllerBase
         _logger = logger;
     }
 
+    /// <summary>
+    /// Creates a new user
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>Returns User id</returns>
     [HttpPost]
     public async Task<IActionResult> CreateUser(CreateUserCommand command)
     {
@@ -38,7 +43,7 @@ public sealed class IdentityController : ControllerBase
         return Ok(response);
     }
         
-    
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUserById([FromRoute] string id)
     {

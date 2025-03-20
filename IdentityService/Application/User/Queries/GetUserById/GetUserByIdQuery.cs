@@ -1,6 +1,7 @@
-using IdentityService.Aplication.User.DTOs;
+using IdentityService.Application.User.DTOs;
+using IdentityService.Application.User.DTOs;
 using MediatR;
 
-namespace IdentityService.Aplication.User.Queries.GetUserById;
+namespace IdentityService.Application.User.Queries.GetUserById;
 
 public record GetUserByIdQuery(string Id) : IRequest<UserDTO>;

@@ -1,11 +1,11 @@
-using IdentityService.Aplication.User.Command.RefreshToken;
+using IdentityService.Application.User.Command.RefreshToken;
 using IdentityService.Authentication;
 using IdentityService.Exceptions;
 using IdentityService.Interface;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace IdentityService.Aplication.User.Command.RevokeToken;
+namespace IdentityService.Application.User.Command.RevokeToken;
 
 public class RevokeTokenCommandHandler : IRequestHandler<RevokeTokenCommand, string>
 {

@@ -1,11 +1,12 @@
 using AutoMapper;
-using IdentityService.Aplication.User.DTOs;
+using IdentityService.Application.User.DTOs;
+using IdentityService.Application.User.DTOs;
 using IdentityService.Exceptions;
 using IdentityService.Interface;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace IdentityService.Aplication.User.Queries.GetUserByEmail;
+namespace IdentityService.Application.User.Queries.GetUserByEmail;
 
 public class GetUserByEmailQueryHandler : IRequestHandler<GetUserByEmailQuery, UserDTO>
 {

@@ -1,11 +1,12 @@
 using AutoMapper;
-using IdentityService.Aplication.User.DTOs;
+using IdentityService.Application.User.DTOs;
+using IdentityService.Application.User.DTOs;
 using IdentityService.Exceptions;
 using IdentityService.Interface;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace IdentityService.Aplication.User.Queries.GetUserById;
+namespace IdentityService.Application.User.Queries.GetUserById;
 
 public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDTO>
 {

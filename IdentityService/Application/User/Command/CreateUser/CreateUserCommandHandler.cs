@@ -1,28 +1,27 @@
 using AutoMapper;
-using Identity.Contracts;
+using IdentityService.Application.User.Command.CreateUser;
 using IdentityService.Exceptions;
 using IdentityService.Interface;
 using IdentityService.Services;
-using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Shared.Enum;
 
-namespace IdentityService.Aplication.User.Command.CreateUser;
+namespace IdentityService.Application.User.Command.CreateUser;
 
 public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, string>
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
     private readonly ILogger<CreateUserCommandHandler> _logger;
-    private readonly IPublishEndpoint _publishEndpoint;
+    // private readonly IPublishEndpoint _publishEndpoint;
 
-    public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, ILogger<CreateUserCommandHandler> logger, IPublishEndpoint publishEndpoint)
+    public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, ILogger<CreateUserCommandHandler> logger)//, IPublishEndpoint publishEndpoint)
     {
         _userRepository = userRepository;
         _mapper = mapper;
         _logger = logger?? throw new ArgumentNullException(nameof(logger));
-        _publishEndpoint = publishEndpoint;
+        //_publishEndpoint = publishEndpoint;
 
         // Console.WriteLine(logger != null ? "Logger Injected in CreateUserCommandHandler" : "Logger is NULL in CreateUserCommandHandler");
         //_logger.LogInformation("CreateUserCommandHandler initialized.");
@@ -32,7 +31,8 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, strin
     {
         _logger.LogInformation("Creating user with {@Request}", request);
 
-        if (_userRepository.GetUserByEmail(request.Email) != null)
+
+        if (!await _userRepository.IsEmailUnique(request.Email, cancellationToken))
         {
             _logger.LogInformation("User with this email already exist");
             throw new UserAlreadyExistExceptions("User with this email already exist");

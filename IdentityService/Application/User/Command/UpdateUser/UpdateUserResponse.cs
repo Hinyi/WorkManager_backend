@@ -1,3 +1,3 @@
-namespace IdentityService.Aplication.User.Command.UpdateUser;
+namespace IdentityService.Application.User.Command.UpdateUser;
 
 public record UpdateUserResponse();

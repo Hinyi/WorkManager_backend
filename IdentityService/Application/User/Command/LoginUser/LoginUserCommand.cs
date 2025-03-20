@@ -1,5 +1,5 @@
 using MediatR;
 
-namespace IdentityService.Aplication.User.Command.LoginUser;
+namespace IdentityService.Application.User.Command.LoginUser;
 
 public record LoginUserCommand(string Email, string password) : IRequest<LoginUserResponse>;
