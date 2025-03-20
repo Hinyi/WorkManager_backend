@@ -1,10 +1,5 @@
 using AutoMapper;
-using IdentityService.Aplication.User.Command.CreateUser;
 using IdentityService.Application.User.Command.CreateUser;
-using IdentityService.Entities;
-using IdentityService.Interface;
-using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Moq;
 
