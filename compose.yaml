@@ -1,6 +1,4 @@
-﻿version: '3.8'
-
-services:
+﻿services:
 
   apigateway:
     image: ${DOCKER_REGISTRY-}apigateway
@@ -39,7 +37,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - ./.containers/identity-db:/var/lib/postgresql/data
+      - ./containers/identity-db:/var/lib/postgresql
     ports:
       - 5440:5432
     networks:
@@ -78,7 +76,7 @@ services:
       - task.database
       
   task.database:
-    image: mongodb
+    image: mongo
     container_name: task.database
     ports:
       - "27017:27017"
@@ -86,9 +84,8 @@ services:
         MONGO_INITDB_ROOT_USERNAME: root
         MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
-      # named volumes
       - mongodb:/data/db
-      - mongoconfig:/data/configdb
+      - mongodbconfig:/data/configdb
     networks:
         - proxybackend
     
@@ -96,3 +93,6 @@ networks:
   proxybackend:
     driver: bridge
   
+volumes:
+  mongodb:
+  mongodbconfig:

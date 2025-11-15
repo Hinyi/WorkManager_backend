@@ -8,17 +8,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MediatR" Version="12.5.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="9.0.1" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Controllers\" />
     </ItemGroup>
 
 </Project>
