@@ -26,6 +26,7 @@ builder.Services.AddSwaggerGen(c =>
         Description = "Enter 'Bearer [your token]'"
     });
 
+    
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
