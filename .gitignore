@@ -13,6 +13,10 @@
 /Identity.API/appsettings.Development.json
 /APIGateway/appsettings.Development.json
 /Task.API/appsettings.Development.json
+/.containers
+/containers
+
+
 
 /.idea
 API
