@@ -19,8 +19,8 @@
       context: .
       dockerfile: /Identity.API/Dockerfile
     ports:
-      - "8080:5600"
-      - "8081:5601"
+      - "8080:8080"
+      - "8081:8081"
     environment:
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__UserDb=Host=identity.database;Port=5432;Database=identity;Username=postgres;Password=postgres;Include Error Detail=true
@@ -30,14 +30,14 @@
       - proxybackend
   
   identity.database:
-    image: postgres
+    image: postgres:16
     container_name: identity.database
     environment:
       - POSTGRES_DB=identity
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - ./containers/identity-db:/var/lib/postgresql
+      - ./db:/var/lib/postgresql/data
     ports:
       - 5440:5432
     networks:

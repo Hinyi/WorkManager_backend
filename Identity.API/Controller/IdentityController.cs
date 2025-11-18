@@ -2,6 +2,7 @@ using IdentityService.Application.User.Command.CreateUser;
 using IdentityService.Application.User.Command.LoginUser;
 using IdentityService.Application.User.Command.RefreshToken;
 using IdentityService.Application.User.Command.RevokeToken;
+using IdentityService.Application.User.Queries.GetAllUsers;
 using IdentityService.Application.User.Queries.GetUserByEmail;
 using IdentityService.Application.User.Queries.GetUserById;
 using MediatR;
@@ -44,7 +45,7 @@ public sealed class IdentityController : ControllerBase
     }
         
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetUserById([FromRoute] string id)
     {
         var response = await _mediator.Send(new GetUserByIdQuery(id));
@@ -54,6 +55,13 @@ public sealed class IdentityController : ControllerBase
     public async Task<IActionResult> GetUserByEmail([FromQuery] string email)
     {
         var response = await _mediator.Send(new GetUserByEmailQuery(email));
+        return Ok(response);
+    }
+    
+    [HttpGet("getUsers")]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        var response = await _mediator.Send(new GetAllUsersQuery());
         return Ok(response);
     }
     
@@ -72,8 +80,8 @@ public sealed class IdentityController : ControllerBase
     }
 
     
-    [Authorize]
-    [HttpGet]
+    // [Authorize]
+    [HttpGet("ExampleResponse")]
     public async Task<IActionResult> SomeResponse()
     {
         return Ok("Hello from Identity API");

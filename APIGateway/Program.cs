@@ -22,6 +22,7 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader()
             .WithOrigins("http://localhost:8080")
             .WithOrigins("https://localhost:7047")
+            .WithOrigins("https://localhost:5173")
     );
 });
 
@@ -33,6 +34,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("FrontEndClient");
 
 app.UseHttpsRedirection();
 
