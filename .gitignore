@@ -15,6 +15,7 @@
 /Task.API/appsettings.Development.json
 /.containers/
 /containers/
+/db
 
 /.idea
 API
