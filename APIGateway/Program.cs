@@ -23,6 +23,7 @@ builder.Services.AddCors(options =>
             .WithOrigins("http://localhost:8080")
             .WithOrigins("https://localhost:7047")
             .WithOrigins("https://localhost:5173")
+            .WithOrigins("http://localhost:5173")
     );
 });
 

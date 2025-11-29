@@ -9,7 +9,7 @@ using Shared.Enum;
 
 namespace IdentityService.Application.User.Command.CreateUser;
 
-public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, string>
+public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserResponse>
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
@@ -27,7 +27,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, strin
         //_logger.LogInformation("CreateUserCommandHandler initialized.");
     }
 
-    public async Task<string> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<CreateUserResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Creating user with {@Request}", request);
 
@@ -53,6 +53,6 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, strin
         //     
         // }, cancellationToken);
         
-        return id;
+        return new CreateUserResponse(Guid.Parse(id));
     }
 }
