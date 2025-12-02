@@ -33,6 +33,7 @@ public static class JwtExtension
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidateLifetime = true,
+                        ClockSkew =  TimeSpan.Zero,
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = jwtSettings?.Issuer, //configuration["Jwt:Issuer"], 
                         ValidAudience = jwtSettings?.Audience,//configuration["Jwt:Audience"], 

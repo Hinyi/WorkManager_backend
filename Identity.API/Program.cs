@@ -46,13 +46,15 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontEndClient", builder =>
-        builder.AllowAnyMethod()
+        builder.WithOrigins(
+                "http://localhost:8080",
+                "https://localhost:7047",
+                "https://localhost:5173",
+                "http://localhost:5173"
+            )
+            .AllowAnyMethod()
             .AllowAnyHeader()
-            .AllowAnyOrigin()
-            .WithOrigins("http://localhost:8080")
-            .WithOrigins("https://localhost:7047")
-            .WithOrigins("https://localhost:5173")
-            .WithOrigins("http://localhost:5173")
+            .AllowCredentials()
     );
 });
 
