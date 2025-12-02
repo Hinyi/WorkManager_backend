@@ -38,7 +38,8 @@ internal sealed class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenC
         var refreshToken = _jwtProvider.GenerateRefreshToken();
         
         user.RefreshToken = refreshToken;
-        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddMinutes(5);
+        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddMinutes(1);
+        
         
         await _userRepository.UpdateUser(user);
         

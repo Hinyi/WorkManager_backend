@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace IdentityService.Application.User.Command.RevokeToken;
 
-public class RevokeTokenCommandHandler : IRequestHandler<RevokeTokenCommand, string>
+public class RevokeTokenCommandHandler : IRequestHandler<RevokeTokenCommand, RevokeTokenResponse>
 {
     private readonly IUserRepository _userRepository;
     private readonly ILogger<RevokeTokenCommandHandler> _logger;
@@ -20,7 +20,7 @@ public class RevokeTokenCommandHandler : IRequestHandler<RevokeTokenCommand, str
         _jwtProvider = jwtProvider;
     }
 
-    public async Task<string> Handle(RevokeTokenCommand request, CancellationToken cancellationToken)
+    public async Task<RevokeTokenResponse> Handle(RevokeTokenCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetUserByRefreshToken(request.refreshToken, cancellationToken);
         
@@ -31,10 +31,10 @@ public class RevokeTokenCommandHandler : IRequestHandler<RevokeTokenCommand, str
         }
         
         user.RefreshToken = null;
-        user.RefreshTokenExpiryTime = DateTime.Now;
+        user.RefreshTokenExpiryTime = DateTime.UtcNow;
         
         await _userRepository.UpdateUser(user);
         
-        return "Token revoked successfully";
+        return new RevokeTokenResponse("Token revoked successfully");
     }
 }

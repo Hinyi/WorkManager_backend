@@ -37,7 +37,7 @@ internal sealed class LoginCommandHandler : IRequestHandler<LoginUserCommand, Lo
         var refreshToken = _jwtProvider.GenerateRefreshToken();
         
         user.RefreshToken = refreshToken;
-        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddMinutes(60);
+        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddMinutes(1);
         
         await _userRepository.UpdateUser(user);
         
