@@ -22,7 +22,7 @@ internal sealed class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenC
     private readonly IJwtProvider _jwtProvider;
     private readonly TokenSettings _tokenSettings;
     
-    public RefreshTokenCommandHandler(IUserRepository userRepository, ILogger<RefreshTokenCommandHandler> logger, IJwtProvider jwtProvider, TokenOptions tokenOptions, TokenSettings tokenSettings)
+    public RefreshTokenCommandHandler(IUserRepository userRepository, ILogger<RefreshTokenCommandHandler> logger, IJwtProvider jwtProvider, TokenSettings tokenSettings)
     {
         _userRepository = userRepository;
         _logger = logger;
