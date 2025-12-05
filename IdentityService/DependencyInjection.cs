@@ -79,6 +79,8 @@ public static class DependencyInjection
             options.Configuration = connectionString;
         });
         
+        services.Configure<TokenSettings>(configuration.GetSection("TokenSettings"));
+        
         // Add MassTransit
         //services.AddRabbitMq(configuration);
         

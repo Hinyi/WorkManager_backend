@@ -1,8 +1,10 @@
 using IdentityService.Authentication;
 using IdentityService.Exceptions;
 using IdentityService.Interface;
+using IdentityService.Services;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
 namespace IdentityService.Application.User.Command.RefreshToken;
@@ -18,11 +20,14 @@ internal sealed class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenC
     private readonly IUserRepository _userRepository;
     private readonly ILogger<RefreshTokenCommandHandler> _logger;
     private readonly IJwtProvider _jwtProvider;
-    public RefreshTokenCommandHandler(IUserRepository userRepository, ILogger<RefreshTokenCommandHandler> logger, IJwtProvider jwtProvider)
+    private readonly TokenSettings _tokenSettings;
+    
+    public RefreshTokenCommandHandler(IUserRepository userRepository, ILogger<RefreshTokenCommandHandler> logger, IJwtProvider jwtProvider, TokenOptions tokenOptions, TokenSettings tokenSettings)
     {
         _userRepository = userRepository;
         _logger = logger;
         _jwtProvider = jwtProvider;
+        _tokenSettings = tokenSettings;
     }
     public async Task<RefreshTokenResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
@@ -38,7 +43,7 @@ internal sealed class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenC
         var refreshToken = _jwtProvider.GenerateRefreshToken();
         
         user.RefreshToken = refreshToken;
-        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddMinutes(1);
+        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddMinutes(_tokenSettings.RefreshTokenExpiryTime);
         
         
         await _userRepository.UpdateUser(user);
