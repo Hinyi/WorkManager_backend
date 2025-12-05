@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace IdentityService.Application.User.Command.RefreshToken;
 
@@ -22,12 +23,16 @@ internal sealed class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenC
     private readonly IJwtProvider _jwtProvider;
     private readonly TokenSettings _tokenSettings;
     
-    public RefreshTokenCommandHandler(IUserRepository userRepository, ILogger<RefreshTokenCommandHandler> logger, IJwtProvider jwtProvider, TokenSettings tokenSettings)
+    public RefreshTokenCommandHandler(
+        IUserRepository userRepository, 
+        ILogger<RefreshTokenCommandHandler> logger, 
+        IJwtProvider jwtProvider, 
+        IOptions<TokenSettings> tokenSettings)
     {
         _userRepository = userRepository;
         _logger = logger;
         _jwtProvider = jwtProvider;
-        _tokenSettings = tokenSettings;
+        _tokenSettings = tokenSettings.Value;
     }
     public async Task<RefreshTokenResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
