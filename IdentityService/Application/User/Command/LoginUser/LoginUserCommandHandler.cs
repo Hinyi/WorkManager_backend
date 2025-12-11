@@ -6,6 +6,7 @@ using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace IdentityService.Application.User.Command.LoginUser;
 
@@ -15,12 +16,16 @@ internal sealed class LoginCommandHandler : IRequestHandler<LoginUserCommand, Lo
     private readonly ILogger<LoginCommandHandler> _logger;
     private readonly IJwtProvider _jwtProvider;
     private readonly TokenSettings _tokenSettings;
-    public LoginCommandHandler(IUserRepository userRepository, ILogger<LoginCommandHandler> logger, IJwtProvider jwtProvider, TokenSettings tokenSettings)
+    public LoginCommandHandler(
+        IUserRepository userRepository, 
+        ILogger<LoginCommandHandler> logger, 
+        IJwtProvider jwtProvider, 
+        IOptions<TokenSettings> tokenSettings)
     {
         _userRepository = userRepository;
         _logger = logger;
         _jwtProvider = jwtProvider;
-        _tokenSettings = tokenSettings;
+        _tokenSettings = tokenSettings.Value;
     }
     
     public async Task<LoginUserResponse> Handle(LoginUserCommand request, CancellationToken cancellationToken)
