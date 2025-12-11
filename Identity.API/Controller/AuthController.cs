@@ -50,9 +50,25 @@ public sealed class AuthController : ControllerBase
     }
     
     [HttpPost("revokeToken")]
-    public async Task<IActionResult> RevokeToken([FromBody] RevokeTokenCommand command)
+    public async Task<IActionResult> RevokeToken()
     {
-        var response = await _mediator.Send(command);
+        var refreshToken = Request.Cookies["refreshToken"];
+
+        if (string.IsNullOrEmpty(refreshToken))
+        {
+            return BadRequest("Refresh Token is missing");
+        }
+        
+        var response = await _mediator.Send(new RevokeTokenCommand(refreshToken));
+        
+        Response.Cookies.Delete("refreshToken", new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.None,
+            Path = "/"
+        });
+        
         return Ok(response);
     }
 
