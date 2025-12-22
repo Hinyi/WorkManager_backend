@@ -2,6 +2,7 @@ using IdentityService.Application.User.Command.CreateUser;
 using IdentityService.Application.User.Command.LoginUser;
 using IdentityService.Application.User.Command.RefreshToken;
 using IdentityService.Application.User.Command.RevokeToken;
+using IdentityService.Application.User.Command.UpdateUser;
 using IdentityService.Application.User.Queries.GetAllUsers;
 using IdentityService.Application.User.Queries.GetUserByEmail;
 using IdentityService.Application.User.Queries.GetUserById;
@@ -56,7 +57,14 @@ public sealed class IdentityController : ControllerBase
         var response = await _mediator.Send(new GetAllUsersQuery());
         return Ok(response);
     }
-    
+
+    [HttpPut("updatePassword")]
+    public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand command)
+    {
+        var response = await _mediator.Send(command);
+        
+        return Ok(response);
+    }
     
     [Authorize]
     [HttpGet("ExampleResponse")]
