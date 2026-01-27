@@ -78,11 +78,12 @@
   task.database:
     image: mongo
     container_name: task.database
+    command: mongod --port 27018
     ports:
-      - "27017:27017"
+      - "27018:27018"
     environment:
-        MONGO_INITDB_ROOT_USERNAME: root
-        MONGO_INITDB_ROOT_PASSWORD: example
+        MONGO_INITDB_ROOT_USERNAME: admin
+        MONGO_INITDB_ROOT_PASSWORD: admin
     volumes:
       - mongodb:/data/db
       - mongodbconfig:/data/configdb
@@ -94,5 +95,5 @@ networks:
     driver: bridge
   
 volumes:
-  mongodb:
+  mongodb: 
   mongodbconfig:
