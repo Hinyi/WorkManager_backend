@@ -16,4 +16,8 @@
       <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Bson" Version="3.6.0" />
+    </ItemGroup>
+
 </Project>

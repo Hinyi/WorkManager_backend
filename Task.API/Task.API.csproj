@@ -20,4 +20,9 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Task.Application\Task.Application.csproj" />
+      <ProjectReference Include="..\Task.Infrastructure\Task.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

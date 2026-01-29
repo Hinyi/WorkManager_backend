@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Task.Application.Commands.AddNewTask;
 
 namespace Task.API.Controllers;
 
@@ -8,12 +9,13 @@ namespace Task.API.Controllers;
 public sealed class TaskController : ControllerBase
 {
     private readonly IMediator _mediator;
+
     public TaskController(IMediator mediator)
     {
         _mediator = mediator;
         // Constructor logic can be added here if needed
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> GetTasks()
     {
@@ -21,5 +23,12 @@ public sealed class TaskController : ControllerBase
         var response = "It's my response";
         return Ok(response);
     }
-    
+
+    [HttpPost]
+    public async Task<IActionResult> AddNewTask(AddNewTaskCommand command)
+    {
+        var response = await _mediator.Send(command);
+        return Ok(response);
+
+    }
 }

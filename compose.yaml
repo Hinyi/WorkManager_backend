@@ -11,8 +11,8 @@
       - ASPNETCORE_URLS=http://+:5500
     networks:
       - proxybackend
-      
-
+  
+  
   identity.api:
     image: ${DOCKER_REGISTRY-}identity.api
     build:
@@ -42,7 +42,7 @@
       - 5440:5432
     networks:
       - proxybackend
-       
+  
   workmanager-mq:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -57,7 +57,7 @@
       RABBITMQ_DEFAULT_USER: "guest"
       RABBITMQ_DEFAULT_PASS: "guest"
     networks:
-        - proxybackend
+      - proxybackend
   
   cache:
     image: redis
@@ -66,34 +66,42 @@
       - "6379:6379"
     networks:
       - proxybackend
-      
+  
   task.api:
     image: task.api
     build:
       context: .
-      dockerfile: Task.API/Dockerfile    
+      dockerfile: Task.API/Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+      - MongoSettings__ConnectionString=mongodb://admin:admin@task.database:27017/?authSource=admin
+      - MongoSettings__DatabaseName=WorkManagerTasks
     depends_on:
       - task.database
-      
+    networks:
+      - proxybackend
+  
   task.database:
     image: mongo
     container_name: task.database
-    command: mongod --port 27018
     ports:
-      - "27018:27018"
+      - "27018:27017"
     environment:
-        MONGO_INITDB_ROOT_USERNAME: admin
-        MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: WorkManagerTasks
     volumes:
       - mongodb:/data/db
       - mongodbconfig:/data/configdb
     networks:
-        - proxybackend
-    
+      - proxybackend
+
 networks:
   proxybackend:
     driver: bridge
-  
+
 volumes:
-  mongodb: 
+  mongodb:
   mongodbconfig:

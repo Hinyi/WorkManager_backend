@@ -12,10 +12,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.12" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.3" />
-      <PackageReference Include="MongoDB.Driver" Version="3.2.1" />
-      <PackageReference Include="MongoDB.EntityFrameworkCore" Version="8.2.3" />
+      <PackageReference Include="MongoDB.Bson" Version="3.6.0" />
+      <PackageReference Include="MongoDB.Driver" Version="3.6.0" />
+      <PackageReference Include="MongoDB.EntityFrameworkCore" Version="9.0.4" />
     </ItemGroup>
 
     <ItemGroup>

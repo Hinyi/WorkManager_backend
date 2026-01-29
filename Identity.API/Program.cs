@@ -76,7 +76,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("FrontEndClient");
 
-app.UseSerilogRequestLogging();
+
 
 app.UseHttpsRedirection();
 app.UseShared();

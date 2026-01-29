@@ -1,4 +1,8 @@
 using Microsoft.OpenApi.Models;
+using Serilog;
+using Shared;
+using Task.Infrastructure;
+using Task.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +12,9 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 // builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddShared();
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -37,6 +44,11 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Host.UseSerilog((context, configuration) =>
+{
+    configuration.ReadFrom.Configuration(context.Configuration);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,13 +57,19 @@ var app = builder.Build();
 //     app.MapOpenApi();
 // }
 
+
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseSerilogRequestLogging();
+
 app.UseHttpsRedirection();
+app.UseShared();
 
 app.UseAuthorization();
 
