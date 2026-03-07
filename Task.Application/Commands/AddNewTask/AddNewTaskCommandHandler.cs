@@ -29,7 +29,7 @@ internal sealed class AddNewTaskCommandHandler : IRequestHandler<AddNewTaskComma
         await _context.SaveChangesAsync(cancellationToken);
 
         var response = new AddNewTaskCommandResponse(
-            task.Id
+            "Task created"
         );
         return response;
     }

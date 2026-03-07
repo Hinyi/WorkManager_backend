@@ -1,8 +1,9 @@
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Shared;
-using Task.Infrastructure;
+using Shared.Services;
 using Task.Application;
+using Task.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,15 +40,12 @@ builder.Services.AddSwaggerGen(c =>
                     Id = "Bearer"
                 }
             },
-            new string[] {}
+            new string[] { }
         }
     });
 });
 
-builder.Host.UseSerilog((context, configuration) =>
-{
-    configuration.ReadFrom.Configuration(context.Configuration);
-});
+builder.Host.UseSerilog((context, configuration) => { configuration.ReadFrom.Configuration(context.Configuration); });
 
 var app = builder.Build();
 
@@ -56,8 +54,6 @@ var app = builder.Build();
 // {
 //     app.MapOpenApi();
 // }
-
-
 
 
 if (app.Environment.IsDevelopment())
@@ -73,6 +69,7 @@ app.UseShared();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapEndpoints();
+//app.MapControllers();
 
 app.Run();

@@ -31,6 +31,7 @@ public static class Extensions
 
         services.AddHttpContextAccessor();
 
+
         return services;
     }
 }
