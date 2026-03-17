@@ -44,12 +44,11 @@
       - proxybackend
   
   workmanager-mq:
-    image: rabbitmq:3-management
+    image: rabbitmq:4-management
     container_name: rabbitmq
     hostname: rabbitmq
     volumes:
-      - ./.containers/rabbitmq/data:/var/lib/rabbitmq
-      - ./.containers/rabbitmq/log:/var/log/rabbitmq
+      - rabbitmq_data:/var/lib/rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -105,3 +104,5 @@ networks:
 volumes:
   mongodb:
   mongodbconfig:
+  rabbitmq_data:
+    driver: local
